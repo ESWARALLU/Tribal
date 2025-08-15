@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% block content %}
+<form method="post" onsubmit="return validateForm()" class="container mt-4 p-4 border rounded bg-light shadow-sm" style="max-width: 500px;">
+    {% csrf_token %}
+
+    <h3 class="text-center mb-4">Signup</h3>
+
+    <!-- Error Alert -->
+    <div id="errorAlert" class="alert alert-danger d-none" role="alert"></div>
+
+    <!-- Phone -->
+    <div class="mb-3">
+        <label for="phno" class="form-label">Phone Number</label>
+        <input type="number" name="phno" id="phno" class="form-control" pattern="\d{10}" title="Enter exactly 10 digits" required>
+    </div>
+
+    <!-- Name -->
+    <div class="mb-3">
+        <label class="form-label">Name</label>
+        <input type="text" name="name" class="form-control" required>
+    </div>
+
+    <!-- Tribe -->
+    <div class="mb-3">
+        <label class="form-label">Select Tribe</label>
+        <select name="tribe_name" class="form-select" required>
+            <option value="" disabled selected>Select tribe</option>
+            {% for t in tribe %}
+                <option value="{{ t.id }}">{{ t.tribe }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <!-- Village -->
+    <div class="mb-3">
+        <label class="form-label">Select Village</label>
+        <select name="village_name" class="form-select" required>
+            <option value="" disabled selected>Select village</option>
+            {% for v in village %}
+                <option value="{{ v.id }}">{{ v.village }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <!-- Gender -->
+    <div class="mb-3">
+        <label class="form-label">Gender</label>
+        <select name="gender" class="form-select" required>
+            <option value="" disabled selected>Select</option>
+            <option value="M">Male</option>
+            <option value="F">Female</option>
+            <option value="O">Others</option>
+        </select>
+    </div>
+
+    <!-- Password -->
+    <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" name="password" id="password" minlength="8" class="form-control" required>
+    </div>
+
+    <!-- Confirm Password -->
+    <div class="mb-3">
+        <label for="repassword" class="form-label">Confirm Password</label>
+        <input type="password" name="repassword" id="repassword" minlength="8" class="form-control" required>
+    </div>
+
+    <!-- Submit -->
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary px-4">Signup</button>
+    </div>
+</form>
+
+<!-- Bootstrap JS Validation -->
+<script>
+function showError(message) {
+    const alertBox = document.getElementById('errorAlert');
+    alertBox.textContent = message;
+    alertBox.classList.remove('d-none');
+}
+
+function validateForm() {
+    const phno = document.getElementById('phno').value.trim();
+    const password = document.getElementById('password').value;
+    const repassword = document.getElementById('repassword').value;
+
+    if (!/^\d{10}$/.test(phno)) {
+        showError('Phone number must be exactly 10 digits.');
+        return false;
+    }
+
+    if (password.length < 8) {
+        showError('Password must be at least 8 characters long.');
+        return false;
+    }
+
+    if (password !== repassword) {
+        showError('Passwords do not match.');
+        return false;
+    }
+
+    return true;
+}
+</script>
+{% endblock %}

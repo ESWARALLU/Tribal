@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Home - Tribal Management System
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Welcome to the Tribal Management System</h1>
+    <p>This system is designed to manage and support the tribal community, 
+       including doctors, teachers, data officers, students, and tribal members.</p>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Medical Services</h5>
+                    <p class="card-text"> Doctor:{{doctor.name}}</p>
+                    <p class="card-text">Doctor Phno:{{doctor.phno}}</p>
+    
+                    <a href="{% url 'tribe' %}" class="btn btn-success">Book Appointment</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Schemes</h5>
+                    <p class="card-text">All are schemes are given government</p>
+                    <p class="card-text">Please give your feedback guinely </p>
+                    <a href="{% url 'tribe' %}" class="btn btn-success">Give Feedback</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Eductaion</h5>
+                    <p class="card-text">Head master:{{head.name}}</p>
+                    <p class="card-text">Phno:{{head.phno}} </p>
+                    <a href="{% url 'tribe' %}" class="btn btn-success">View Details</a>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+{% endblock %}

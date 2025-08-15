@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<p>{{tribeMember.name }}</p>
+<form method="post">
+    {% csrf_token %}
+    <p>enter tribe</p>
+    <input type="text" name="tribe">
+    <button type="submit">save</button>
+</form>
+{% endblock %}

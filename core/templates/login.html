@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block content %}
+<form method="post" onsubmit="return validateForm()" class="container mt-5 p-4 border rounded bg-light shadow-sm" style="max-width: 400px;">
+    {% csrf_token %}
+    
+    <h3 class="text-center mb-4">Login</h3>
+
+    <!-- Error Alert -->
+    {% if error %}
+        <div id="errorAlert" class="alert alert-danger " role="alert">{{msg}}</div>
+    {% endif %}
+    <div id="errorAlert" class="alert alert-danger d-none" role="alert"></div>
+
+    <!-- Phone -->
+    <div class="mb-3">
+        <label for="phno" class="form-label">Phone Number</label>
+        <input type="number" name="phno" id="phno" class="form-control" pattern="\d{10}" title="Enter exactly 10 digits" required>
+    </div>
+
+    <!-- Password -->
+    <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" name="password" id="password" minlength="8" class="form-control" required>
+    </div>
+
+    <!-- Submit -->
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary px-4">Login</button>
+    </div>
+</form>
+
+<!-- Bootstrap JS Validation -->
+<script>
+function showError(message) {
+    const alertBox = document.getElementById('errorAlert');
+    alertBox.textContent = message;
+    alertBox.classList.remove('d-none');
+}
+
+function validateForm() {
+    const phno = document.getElementById('phno').value.trim();
+    const password = document.getElementById('password').value;
+
+    if (!/^\d{10}$/.test(phno)) {
+        showError('Phone number must be exactly 10 digits.');
+        return false;
+    }
+
+    if (password.length < 8) {
+        showError('Password must be at least 8 characters long.');
+        return false;
+    }
+
+    return true; // valid form
+}
+</script>
+{% endblock %}
